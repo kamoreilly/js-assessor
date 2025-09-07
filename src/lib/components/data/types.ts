@@ -16,31 +16,31 @@ export interface DataCardProps {
 	status?: string;
 	statusVariant?: 'success' | 'warning' | 'error' | 'info';
 	progress?: number;
-	metadata?: Record<string, any>;
+	metadata?: Record<string, unknown>;
 	actions?: string[];
 	class?: string;
 	hoverEffect?: boolean;
 }
 
-export interface DataGridProps {
-	items: any[];
+export interface DataGridProps<T = unknown> {
+	items: T[];
 	columns?: number | { sm?: number; md?: number; lg?: number; xl?: number };
 	gap?: 'sm' | 'md' | 'lg';
 	class?: string;
 }
 
-export interface TableColumn {
+export interface TableColumn<T = unknown> {
 	key: string;
 	label: string;
 	sortable?: boolean;
 	width?: string;
 	align?: 'left' | 'center' | 'right';
-	render?: (value: any, row: any) => string;
+	render?: (value: unknown, row: T) => string;
 }
 
-export interface DataTableProps {
-	data: any[];
-	columns: TableColumn[];
+export interface DataTableProps<T = unknown> {
+	data: T[];
+	columns: TableColumn<T>[];
 	sortBy?: string;
 	sortDirection?: 'asc' | 'desc';
 	class?: string;

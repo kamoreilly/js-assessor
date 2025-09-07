@@ -26,7 +26,7 @@ Here's how to structure a complete page using the component library:
 	// Page data
 	let searchTerm = '';
 	let statusFilter = 'all';
-	
+
 	const applications: Application[] = [
 		{
 			id: '1',
@@ -64,7 +64,7 @@ Here's how to structure a complete page using the component library:
 	];
 
 	// Computed values
-	$: filteredApplications = applications.filter(app => {
+	$: filteredApplications = applications.filter((app) => {
 		const matchesSearch = app.title.toLowerCase().includes(searchTerm.toLowerCase());
 		const matchesStatus = statusFilter === 'all' || app.status.toLowerCase() === statusFilter;
 		return matchesSearch && matchesStatus;
@@ -108,23 +108,11 @@ Here's how to structure a complete page using the component library:
 	>
 		<!-- Filters -->
 		<FilterPanel>
-			<SearchInput
-				bind:value={searchTerm}
-				placeholder="Search applications..."
-				label="Search"
-			/>
-			<FilterSelect
-				bind:value={statusFilter}
-				options={statusOptions}
-				label="Status"
-			/>
+			<SearchInput bind:value={searchTerm} placeholder="Search applications..." label="Search" />
+			<FilterSelect bind:value={statusFilter} options={statusOptions} label="Status" />
 			<ButtonGroup>
-				<Button variant="secondary" onclick={clearFilters}>
-					Clear Filters
-				</Button>
-				<Button variant="primary" onclick={handleNewApplication}>
-					New Application
-				</Button>
+				<Button variant="secondary" onclick={clearFilters}>Clear Filters</Button>
+				<Button variant="primary" onclick={handleNewApplication}>New Application</Button>
 			</ButtonGroup>
 		</FilterPanel>
 
@@ -150,9 +138,9 @@ Here's how to structure a complete page using the component library:
 					<div class="terminal-dot terminal-dot-yellow"></div>
 					<div class="terminal-dot terminal-dot-green"></div>
 				</div>
-				<div class="text-[var(--color-text-muted)] font-mono">
-					<div class="text-4xl mb-4">🔍</div>
-					<h3 class="text-lg font-semibold mb-2">No applications found</h3>
+				<div class="font-mono text-[var(--color-text-muted)]">
+					<div class="mb-4 text-4xl">🔍</div>
+					<h3 class="mb-2 text-lg font-semibold">No applications found</h3>
 					<p class="text-sm">Try adjusting your search criteria.</p>
 				</div>
 			</div>
@@ -160,20 +148,10 @@ Here's how to structure a complete page using the component library:
 	</PageSection>
 
 	<!-- Activity Section -->
-	<PageSection
-		title="Recent Activity"
-		promptPath="~/dashboard"
-		promptCommand="activity --recent"
-	>
-		<div class="grid lg:grid-cols-2 gap-8">
-			<ActivityFeed
-				{activities}
-				title="System Activity"
-			/>
-			<ActivityFeed
-				activities={activities.slice(0, 3)}
-				title="User Activity"
-			/>
+	<PageSection title="Recent Activity" promptPath="~/dashboard" promptCommand="activity --recent">
+		<div class="grid gap-8 lg:grid-cols-2">
+			<ActivityFeed {activities} title="System Activity" />
+			<ActivityFeed activities={activities.slice(0, 3)} title="User Activity" />
 		</div>
 	</PageSection>
 </PageLayout>
@@ -252,19 +230,15 @@ Here's how to create a comprehensive form using the form components:
 					placeholder="Enter assessment name..."
 					label="Assessment Name"
 				/>
-				
-				<FilterSelect
-					bind:value={formData.type}
-					options={typeOptions}
-					label="Assessment Type"
-				/>
-				
+
+				<FilterSelect bind:value={formData.type} options={typeOptions} label="Assessment Type" />
+
 				<FilterSelect
 					bind:value={formData.priority}
 					options={priorityOptions}
 					label="Priority Level"
 				/>
-				
+
 				<SearchInput
 					bind:value={formData.assignee}
 					placeholder="Enter assignee name..."
@@ -278,23 +252,17 @@ Here's how to create a comprehensive form using the form components:
 					<div class="terminal-dot terminal-dot-yellow"></div>
 					<div class="terminal-dot terminal-dot-green"></div>
 				</div>
-				<label class="block text-sm font-mono text-[var(--color-text)] mb-2">
-					Description
-				</label>
+				<label class="mb-2 block font-mono text-sm text-[var(--color-text)]"> Description </label>
 				<textarea
 					bind:value={formData.description}
 					placeholder="Enter assessment description..."
-					class="w-full h-32 bg-[var(--color-background)] border border-[var(--color-border)] rounded px-3 py-2 font-mono text-sm text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] resize-none"
+					class="h-32 w-full resize-none rounded border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 font-mono text-sm text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none"
 				></textarea>
 			</div>
 
 			<ButtonGroup>
-				<Button type="submit" variant="primary">
-					Create Assessment
-				</Button>
-				<Button type="button" variant="secondary" onclick={handleCancel}>
-					Cancel
-				</Button>
+				<Button type="submit" variant="primary">Create Assessment</Button>
+				<Button type="button" variant="secondary" onclick={handleCancel}>Cancel</Button>
 			</ButtonGroup>
 		</form>
 	</PageSection>
@@ -333,8 +301,16 @@ Here's how to display data using the data components:
 
 	const reportStats: StatCardData[] = [
 		{ value: reports.length, label: 'Total Reports', color: 'var(--color-primary)' },
-		{ value: reports.filter(r => r.status === 'Generated').length, label: 'Generated', color: 'var(--color-success)' },
-		{ value: reports.filter(r => r.status === 'Processing').length, label: 'Processing', color: 'var(--color-warning)' }
+		{
+			value: reports.filter((r) => r.status === 'Generated').length,
+			label: 'Generated',
+			color: 'var(--color-success)'
+		},
+		{
+			value: reports.filter((r) => r.status === 'Processing').length,
+			label: 'Processing',
+			color: 'var(--color-warning)'
+		}
 	];
 
 	function handleDownload(report: Report) {
@@ -358,11 +334,7 @@ Here's how to display data using the data components:
 	footerPromptCommand="status --all-reports-accessible"
 >
 	<!-- Statistics -->
-	<PageSection
-		title="Report Statistics"
-		promptPath="~/reports"
-		promptCommand="stats --overview"
-	>
+	<PageSection title="Report Statistics" promptPath="~/reports" promptCommand="stats --overview">
 		<StatsGrid stats={reportStats} columns={{ sm: 1, md: 3, lg: 3 }} />
 	</PageSection>
 
@@ -400,11 +372,17 @@ Here's how to display data using the data components:
 	>
 		<TerminalWindow padding="p-6 pt-12">
 			{#snippet children()}
-				<div class="font-mono text-sm space-y-2">
-					<div class="text-[var(--color-success)]">[2024-01-15 10:30:15] Report generation started</div>
-					<div class="text-[var(--color-text)]">[2024-01-15 10:30:45] Processing compliance data...</div>
+				<div class="space-y-2 font-mono text-sm">
+					<div class="text-[var(--color-success)]">
+						[2024-01-15 10:30:15] Report generation started
+					</div>
+					<div class="text-[var(--color-text)]">
+						[2024-01-15 10:30:45] Processing compliance data...
+					</div>
 					<div class="text-[var(--color-text)]">[2024-01-15 10:31:20] Generating PDF output...</div>
-					<div class="text-[var(--color-success)]">[2024-01-15 10:31:45] Report generation completed successfully</div>
+					<div class="text-[var(--color-success)]">
+						[2024-01-15 10:31:45] Report generation completed successfully
+					</div>
 				</div>
 			{/snippet}
 		</TerminalWindow>

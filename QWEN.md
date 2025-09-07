@@ -5,6 +5,7 @@
 This is a terminal-themed FSCA (Financial Services and Markets Act) compliance application built with SvelteKit. The application provides tools for managing compliance assessments, generating reports, and tracking compliance activities with a distinctive terminal-style UI.
 
 ### Key Technologies
+
 - **Framework**: SvelteKit 2.x
 - **Language**: TypeScript
 - **Styling**: TailwindCSS with custom terminal theme
@@ -13,12 +14,14 @@ This is a terminal-themed FSCA (Financial Services and Markets Act) compliance a
 - **Fonts**: JetBrains Mono (monospace), Inter (sans-serif)
 
 ### Architecture
+
 - **Frontend**: SvelteKit with component-based architecture
 - **Backend**: Server-side routes using SvelteKit's API routes
 - **Database**: Drizzle ORM with Turso (libSQL) backend
 - **Styling**: TailwindCSS with custom terminal-themed configuration
 
 ### UI Features
+
 - Terminal-themed interface with distinctive red/yellow/green window dots
 - Grid-based background pattern for authentic terminal feel
 - Monospace fonts (JetBrains Mono) for all UI text
@@ -45,6 +48,7 @@ src/
 ## Development Commands
 
 ### Starting Development Server
+
 ```bash
 npm run dev
 # or
@@ -52,16 +56,19 @@ npm run dev -- --open  # Opens app in browser
 ```
 
 ### Building for Production
+
 ```bash
 npm run build
 ```
 
 ### Previewing Production Build
+
 ```bash
 npm run preview
 ```
 
 ### Code Quality
+
 ```bash
 # Type checking
 npm run check
@@ -75,6 +82,7 @@ npm run format
 ```
 
 ### Database Operations
+
 ```bash
 # Push schema changes to database
 npm run db:push
@@ -131,12 +139,14 @@ The application includes a comprehensive component library organized into:
 ## Key Pages
 
 ### Dashboard (`/`)
+
 - System overview with key statistics
 - Application grid for quick access to tools
 - Recent activity feed
 - System status monitoring
 
 ### Assessments (`/assessments`)
+
 - Assessment management interface
 - Status summary cards
 - Create new assessment functionality
@@ -146,10 +156,12 @@ The application includes a comprehensive component library organized into:
 ## Environment Variables
 
 Required environment variables are documented in `.env.example`:
+
 - `DATABASE_URL`: Connection URL for the Turso database
 - `DATABASE_AUTH_TOKEN`: Authentication token for remote database access
 
 For local development, a file-based SQLite database can be used:
+
 ```
 DATABASE_URL="file:local.db"
 ```
@@ -157,6 +169,7 @@ DATABASE_URL="file:local.db"
 ## Development Conventions
 
 ### Coding Style
+
 - TypeScript for all JavaScript code
 - Svelte for component development
 - TailwindCSS for styling with custom theme
@@ -164,16 +177,19 @@ DATABASE_URL="file:local.db"
 - ESLint for code quality
 
 ### Component Design
+
 - Components are organized by function (layout, UI, forms, etc.)
 - Reusable components are exported through `src/lib/components/index.ts`
 - Component types are defined in `src/lib/components/types.ts`
 
 ### Database Schema
+
 - Drizzle ORM is used for database operations
 - Schema is defined in `src/lib/server/db/schema.ts`
 - Migrations are managed through Drizzle Kit
 
 ### Styling Conventions
+
 - Terminal-themed color palette with amber, blue, and green accents
 - Monospace fonts for all UI text
 - Consistent terminal window styling with top bar and colored dots
@@ -182,6 +198,7 @@ DATABASE_URL="file:local.db"
 ## Testing
 
 The project uses SvelteKit's built-in testing capabilities with:
+
 - `svelte-check` for type checking
 - ESLint for static analysis
 - Prettier for code formatting consistency

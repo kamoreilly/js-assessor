@@ -18,7 +18,7 @@
 <script lang="ts">
 	import TerminalWindow from '../ui/TerminalWindow.svelte';
 	import Button from '../buttons/Button.svelte';
-	
+
 	interface Props {
 		title: string;
 		description: string;
@@ -29,7 +29,7 @@
 		onclick?: () => void;
 		class?: string;
 	}
-	
+
 	let {
 		title,
 		description,
@@ -39,7 +39,7 @@
 		onclick,
 		class: className = ''
 	}: Props = $props();
-	
+
 	function handleClick() {
 		if (onclick) {
 			onclick();
@@ -52,32 +52,27 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div onclick={handleClick}>
-<TerminalWindow 
-	class="cursor-pointer group {className}" 
-	hoverEffect={true}
->
-	<div class="text-center">
-		<!-- App Title -->
-		<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-			{title}
-		</h3>
-		
-		<!-- App Description -->
-		<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-			{description}
-		</p>
-		
-		<!-- Status Text -->
-		{#if statusText}
-			<div class="text-xs font-mono mb-4" style="color: {statusColor}">
-				{statusText}
-			</div>
-		{/if}
-		
-		<!-- Action Button -->
-		<Button variant="primary" size="sm" class="w-full">
-			Open App
-		</Button>
-	</div>
-</TerminalWindow>
+	<TerminalWindow class="group cursor-pointer {className}" hoverEffect={true}>
+		<div class="text-center">
+			<!-- App Title -->
+			<h3 class="mb-2 font-mono text-lg font-semibold text-[var(--color-text)]">
+				{title}
+			</h3>
+
+			<!-- App Description -->
+			<p class="mb-3 font-mono text-sm leading-relaxed text-[var(--color-text-secondary)]">
+				{description}
+			</p>
+
+			<!-- Status Text -->
+			{#if statusText}
+				<div class="mb-4 font-mono text-xs" style="color: {statusColor}">
+					{statusText}
+				</div>
+			{/if}
+
+			<!-- Action Button -->
+			<Button variant="primary" size="sm" class="w-full">Open App</Button>
+		</div>
+	</TerminalWindow>
 </div>

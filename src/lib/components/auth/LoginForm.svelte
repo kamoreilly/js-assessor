@@ -16,13 +16,14 @@
 
 <script lang="ts">
 	import type { LoginFormProps, LoginFormData, FormValidationErrors } from './types.js';
+	import type { Snippet } from 'svelte';
 	import Button from '../buttons/Button.svelte';
 	import TerminalWindow from '../ui/TerminalWindow.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	interface Props extends LoginFormProps {
 		class?: string;
-		children?: any;
+		children?: Snippet;
 	}
 
 	let {
@@ -69,12 +70,12 @@
 			validationErrors.email = 'Email is required';
 			return false;
 		}
-		
+
 		if (!emailRegex.test(email)) {
 			validationErrors.email = 'Please enter a valid email address';
 			return false;
 		}
-		
+
 		validationErrors.email = '';
 		return true;
 	}
@@ -84,23 +85,24 @@
 			validationErrors.password = 'Password is required';
 			return false;
 		}
-		
+
 		if (password.length < 8) {
 			validationErrors.password = 'Password must be at least 8 characters long';
 			return false;
 		}
-		
+
 		// Basic password strength validation
 		const hasUpperCase = /[A-Z]/.test(password);
 		const hasLowerCase = /[a-z]/.test(password);
 		const hasNumbers = /\d/.test(password);
 		const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-		
+
 		if (!hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
-			validationErrors.password = 'Password must contain uppercase, lowercase, numbers, and special characters';
+			validationErrors.password =
+				'Password must contain uppercase, lowercase, numbers, and special characters';
 			return false;
 		}
-		
+
 		validationErrors.password = '';
 		return true;
 	}
@@ -108,7 +110,7 @@
 	function validateForm(): boolean {
 		const isEmailValid = validateEmail(formData.email);
 		const isPasswordValid = validatePassword(formData.password);
-		
+
 		return isEmailValid && isPasswordValid;
 	}
 
@@ -132,11 +134,11 @@
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
-		
+
 		if (!validateForm()) {
 			return;
 		}
-		
+
 		if (onLogin) {
 			await onLogin(formData);
 		} else {
@@ -182,9 +184,7 @@
 
 		<form onsubmit={handleSubmit} class="login-form">
 			<div class="form-group">
-				<label for="email-input" class="form-label">
-					Email Address
-				</label>
+				<label for="email-input" class="form-label"> Email Address </label>
 				<input
 					id="email-input"
 					type="email"
@@ -208,9 +208,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="password-input" class="form-label">
-					Password
-				</label>
+				<label for="password-input" class="form-label"> Password </label>
 				<input
 					id="password-input"
 					type="password"
@@ -236,11 +234,7 @@
 			{#if showRememberMe}
 				<div class="form-group checkbox-group">
 					<label class="checkbox-label">
-						<input
-							type="checkbox"
-							bind:checked={formData.rememberMe}
-							class="checkbox-input"
-						/>
+						<input type="checkbox" bind:checked={formData.rememberMe} class="checkbox-input" />
 						<span class="checkbox-text">Remember me for 30 days</span>
 					</label>
 				</div>
@@ -248,10 +242,9 @@
 
 			<div class="form-group">
 				<Button
-					type="submit"
 					variant="primary"
 					size="lg"
-					loading={loading}
+					{loading}
 					disabled={loading || !isValid.email || !isValid.password}
 					class="login-button"
 				>
@@ -266,13 +259,11 @@
 
 		{#if showLinks}
 			<div class="form-links">
-				<a href="/forgot-password" class="form-link">
+				<a href="/forgot-password" class="form-link" data-sveltekit-preload-data="hover">
 					Forgot Password?
 				</a>
 				<span class="link-separator">|</span>
-				<a href="/signup" class="form-link">
-					Create Account
-				</a>
+				<a href="/signup" class="form-link" data-sveltekit-preload-data="hover"> Create Account </a>
 			</div>
 		{/if}
 
@@ -311,12 +302,12 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		background: rgba(239, 68, 68, 0.1);
+		background-color: rgba(239, 68, 68, 0.1);
 		border: 1px solid rgba(239, 68, 68, 0.3);
 		border-radius: 4px;
 		padding: 0.75rem;
 		margin-bottom: 1.5rem;
-		color: #f87171;
+		color: var(--color-error);
 	}
 
 	.error-icon {
@@ -346,7 +337,7 @@
 	.form-input {
 		width: 100%;
 		padding: 0.75rem 1rem;
-		background: var(--color-surface-light);
+		background-color: var(--color-surface-light);
 		border: 1px solid var(--color-border);
 		border-radius: 4px;
 		font-family: var(--font-family-mono);
@@ -362,11 +353,11 @@
 	}
 
 	.form-input.error {
-		border-color: #f87171;
+		border-color: var(--color-error);
 	}
 
 	.form-input.error:focus {
-		border-color: #f87171;
+		border-color: var(--color-error);
 		box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
 	}
 
@@ -376,7 +367,7 @@
 
 	.field-error {
 		font-size: 0.75rem;
-		color: #f87171;
+		color: var(--color-error);
 		margin-top: 0.25rem;
 	}
 
@@ -398,7 +389,7 @@
 	.checkbox-input {
 		width: 1rem;
 		height: 1rem;
-		background: var(--color-surface-light);
+		background-color: var(--color-surface-light);
 		border: 1px solid var(--color-border);
 		border-radius: 2px;
 		cursor: pointer;
@@ -408,7 +399,6 @@
 	.checkbox-text {
 		user-select: none;
 	}
-
 
 	.form-links {
 		display: flex;

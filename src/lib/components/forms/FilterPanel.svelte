@@ -14,9 +14,10 @@
 -->
 
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import TerminalWindow from '../ui/TerminalWindow.svelte';
 	import TerminalPrompt from '../ui/TerminalPrompt.svelte';
-	
+
 	interface Props {
 		class?: string;
 		title?: string;
@@ -24,9 +25,9 @@
 		promptCommand?: string;
 		showClearButton?: boolean;
 		onClear?: () => void;
-		children?: any;
+		children?: Snippet;
 	}
-	
+
 	let {
 		class: className = '',
 		title,
@@ -44,18 +45,18 @@
 			<TerminalPrompt path={promptPath} command={promptCommand} />
 		</div>
 	{/if}
-	
+
 	{#if title}
-		<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-4">{title}</h3>
+		<h3 class="mb-4 font-mono text-lg font-semibold text-[var(--color-text)]">{title}</h3>
 	{/if}
-	
+
 	<div class="space-y-4">
 		{@render children?.()}
-		
+
 		{#if showClearButton && onClear}
 			<div class="flex justify-end pt-2">
 				<button
-					class="btn-terminal px-4 py-2 rounded font-mono text-sm hover:scale-105 transition-transform"
+					class="btn-terminal rounded px-4 py-2 font-mono text-sm transition-transform hover:scale-105"
 					onclick={onClear}
 				>
 					Clear All Filters

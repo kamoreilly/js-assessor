@@ -14,37 +14,32 @@
 <script lang="ts">
 	import Button from './Button.svelte';
 	import type { ActionButtonConfig } from './types.js';
-	
+
 	interface Props {
 		buttons: ActionButtonConfig[];
 		orientation?: 'horizontal' | 'vertical';
 		class?: string;
 		gap?: 'sm' | 'md' | 'lg';
 	}
-	
-	let {
-		buttons,
-		orientation = 'horizontal',
-		class: className = '',
-		gap = 'md'
-	}: Props = $props();
-	
+
+	let { buttons, orientation = 'horizontal', class: className = '', gap = 'md' }: Props = $props();
+
 	const orientationClasses = {
 		horizontal: 'flex flex-row flex-wrap',
 		vertical: 'flex flex-col'
 	};
-	
+
 	const gapClasses = {
 		sm: 'gap-1',
 		md: 'gap-2',
 		lg: 'gap-3'
 	};
-	
+
 	const containerClasses = `${orientationClasses[orientation]} ${gapClasses[gap]} ${className}`;
 </script>
 
 <div class={containerClasses}>
-	{#each buttons as button}
+	{#each buttons as button, i (i)}
 		<Button
 			variant={button.variant}
 			size={button.size}

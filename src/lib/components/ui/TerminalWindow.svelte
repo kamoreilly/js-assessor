@@ -13,12 +13,13 @@
 
 <script lang="ts">
 	import type { TerminalWindowProps } from './types.js';
-	
+	import type { Snippet } from 'svelte';
+
 	interface Props extends TerminalWindowProps {
 		hoverEffect?: boolean;
-		children?: any;
+		children?: Snippet;
 	}
-	
+
 	let {
 		class: className = '',
 		padding = 'md',
@@ -26,13 +27,13 @@
 		hoverEffect = false,
 		children
 	}: Props = $props();
-	
+
 	const paddingClasses = {
 		sm: 'p-3 pt-8',
 		md: 'p-4 sm:p-6 pt-10 sm:pt-12',
 		lg: 'p-6 sm:p-8 pt-12 sm:pt-16'
 	};
-	
+
 	const hoverClass = hoverEffect ? 'hover:border-[var(--color-accent)] transition-colors' : '';
 </script>
 
@@ -44,6 +45,6 @@
 			<div class="terminal-dot terminal-dot-green"></div>
 		</div>
 	{/if}
-	
+
 	{@render children?.()}
 </div>

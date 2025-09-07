@@ -25,94 +25,94 @@
 	}
 
 	// Mock report data for demonstration
-	const reports: Report[] = [
+	let reports: Report[] = [
 		{
 			id: 1,
-			name: "Monthly Compliance Report - December 2024",
-			type: "Monthly Compliance",
-			status: "Generated",
-			generatedDate: "2024-01-15",
-			fileSize: "2.4 MB",
-			format: "PDF",
+			name: 'Monthly Compliance Report - December 2024',
+			type: 'Monthly Compliance',
+			status: 'Generated',
+			generatedDate: '2024-01-15',
+			fileSize: '2.4 MB',
+			format: 'PDF',
 			downloadCount: 12,
-			generatedBy: "System Auto"
+			generatedBy: 'System Auto'
 		},
 		{
 			id: 2,
-			name: "Risk Assessment Summary Q4 2024",
-			type: "Risk Assessment",
-			status: "Processing",
-			generatedDate: "2024-01-14",
-			fileSize: "1.8 MB",
-			format: "Excel",
+			name: 'Risk Assessment Summary Q4 2024',
+			type: 'Risk Assessment',
+			status: 'Processing',
+			generatedDate: '2024-01-14',
+			fileSize: '1.8 MB',
+			format: 'Excel',
 			downloadCount: 5,
-			generatedBy: "John Smith"
+			generatedBy: 'John Smith'
 		},
 		{
 			id: 3,
-			name: "Audit Trail Report - January 2024",
-			type: "Audit Trail",
-			status: "Generated",
-			generatedDate: "2024-01-13",
-			fileSize: "5.2 MB",
-			format: "CSV",
+			name: 'Audit Trail Report - January 2024',
+			type: 'Audit Trail',
+			status: 'Generated',
+			generatedDate: '2024-01-13',
+			fileSize: '5.2 MB',
+			format: 'CSV',
 			downloadCount: 8,
-			generatedBy: "Sarah Johnson"
+			generatedBy: 'Sarah Johnson'
 		},
 		{
 			id: 4,
-			name: "Governance Framework Analysis",
-			type: "Governance",
-			status: "Failed",
-			generatedDate: "2024-01-12",
-			fileSize: "0 MB",
-			format: "PDF",
+			name: 'Governance Framework Analysis',
+			type: 'Governance',
+			status: 'Failed',
+			generatedDate: '2024-01-12',
+			fileSize: '0 MB',
+			format: 'PDF',
 			downloadCount: 0,
-			generatedBy: "Mike Davis"
+			generatedBy: 'Mike Davis'
 		},
 		{
 			id: 5,
-			name: "Capital Adequacy Report Q4 2024",
-			type: "Financial Risk",
-			status: "Scheduled",
-			generatedDate: "2024-01-20",
-			fileSize: "3.1 MB",
-			format: "PDF",
+			name: 'Capital Adequacy Report Q4 2024',
+			type: 'Financial Risk',
+			status: 'Scheduled',
+			generatedDate: '2024-01-20',
+			fileSize: '3.1 MB',
+			format: 'PDF',
 			downloadCount: 0,
-			generatedBy: "System Auto"
+			generatedBy: 'System Auto'
 		},
 		{
 			id: 6,
-			name: "Customer Due Diligence Summary",
-			type: "Compliance",
-			status: "Generated",
-			generatedDate: "2024-01-10",
-			fileSize: "1.2 MB",
-			format: "Excel",
+			name: 'Customer Due Diligence Summary',
+			type: 'Compliance',
+			status: 'Generated',
+			generatedDate: '2024-01-10',
+			fileSize: '1.2 MB',
+			format: 'Excel',
 			downloadCount: 15,
-			generatedBy: "Emma Brown"
+			generatedBy: 'Emma Brown'
 		},
 		{
 			id: 7,
-			name: "Market Conduct Assessment Report",
-			type: "Conduct Risk",
-			status: "Processing",
-			generatedDate: "2024-01-09",
-			fileSize: "2.8 MB",
-			format: "PDF",
+			name: 'Market Conduct Assessment Report',
+			type: 'Conduct Risk',
+			status: 'Processing',
+			generatedDate: '2024-01-09',
+			fileSize: '2.8 MB',
+			format: 'PDF',
 			downloadCount: 3,
-			generatedBy: "Lisa Chen"
+			generatedBy: 'Lisa Chen'
 		},
 		{
 			id: 8,
-			name: "Liquidity Risk Analysis December",
-			type: "Financial Risk",
-			status: "Generated",
-			generatedDate: "2024-01-08",
-			fileSize: "4.5 MB",
-			format: "Excel",
+			name: 'Liquidity Risk Analysis December',
+			type: 'Financial Risk',
+			status: 'Generated',
+			generatedDate: '2024-01-08',
+			fileSize: '4.5 MB',
+			format: 'Excel',
 			downloadCount: 7,
-			generatedBy: "David Wilson"
+			generatedBy: 'David Wilson'
 		}
 	];
 
@@ -177,9 +177,10 @@
 	}
 
 	// Filtered reports
-	$: filteredReports = reports.filter(report => {
-		const matchesSearch = report.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-							report.type.toLowerCase().includes(searchTerm.toLowerCase());
+	$: filteredReports = reports.filter((report) => {
+		const matchesSearch =
+			report.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			report.type.toLowerCase().includes(searchTerm.toLowerCase());
 		const matchesType = selectedType === 'All' || report.type === selectedType;
 		const matchesStatus = selectedStatus === 'All' || report.status === selectedStatus;
 		// For demo purposes, we'll just filter by type and status for date range
@@ -189,11 +190,13 @@
 	// Report statistics
 	$: reportStats = {
 		total: reports.length,
-		generated: reports.filter(r => r.status === 'Generated').length,
-		processing: reports.filter(r => r.status === 'Processing').length,
-		failed: reports.filter(r => r.status === 'Failed').length,
-		scheduled: reports.filter(r => r.status === 'Scheduled').length,
-		totalSize: reports.reduce((sum, r) => sum + parseFloat(r.fileSize.replace(' MB', '')), 0).toFixed(1),
+		generated: reports.filter((r) => r.status === 'Generated').length,
+		processing: reports.filter((r) => r.status === 'Processing').length,
+		failed: reports.filter((r) => r.status === 'Failed').length,
+		scheduled: reports.filter((r) => r.status === 'Scheduled').length,
+		totalSize: reports
+			.reduce((sum, r) => sum + parseFloat(r.fileSize.replace(' MB', '')), 0)
+			.toFixed(1),
 		totalDownloads: reports.reduce((sum, r) => sum + r.downloadCount, 0)
 	};
 
@@ -270,35 +273,29 @@
 		background="surface"
 	>
 		<!-- Actions Bar -->
-		<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-			<div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-				<Button variant="primary" size="md" onclick={generateNewReport}>
-					Generate New Report
-				</Button>
+		<div class="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+			<div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+				<Button variant="primary" size="md" onclick={generateNewReport}>Generate New Report</Button>
 				<div class="flex items-center gap-2">
-					<Button variant="secondary" size="sm" onclick={() => exportReports('csv')}>
-						CSV
-					</Button>
+					<Button variant="secondary" size="sm" onclick={() => exportReports('csv')}>CSV</Button>
 					<Button variant="secondary" size="sm" onclick={() => exportReports('excel')}>
 						Excel
 					</Button>
-					<Button variant="secondary" size="sm" onclick={() => exportReports('pdf')}>
-						PDF
-					</Button>
+					<Button variant="secondary" size="sm" onclick={() => exportReports('pdf')}>PDF</Button>
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
 				<Button
 					variant={viewMode === 'cards' ? 'primary' : 'secondary'}
 					size="sm"
-					onclick={() => viewMode = 'cards'}
+					onclick={() => (viewMode = 'cards')}
 				>
 					Cards
 				</Button>
 				<Button
 					variant={viewMode === 'table' ? 'primary' : 'secondary'}
 					size="sm"
-					onclick={() => viewMode = 'table'}
+					onclick={() => (viewMode = 'table')}
 				>
 					Table
 				</Button>
@@ -312,25 +309,11 @@
 				placeholder="Search by name or type..."
 				label="Search Reports"
 			/>
-			<FilterSelect
-				bind:value={selectedType}
-				options={typeOptions}
-				label="Report Type"
-			/>
-			<FilterSelect
-				bind:value={selectedStatus}
-				options={statusFilterOptions}
-				label="Status"
-			/>
-			<FilterSelect
-				bind:value={selectedDateRange}
-				options={dateRangeOptions}
-				label="Date Range"
-			/>
+			<FilterSelect bind:value={selectedType} options={typeOptions} label="Report Type" />
+			<FilterSelect bind:value={selectedStatus} options={statusFilterOptions} label="Status" />
+			<FilterSelect bind:value={selectedDateRange} options={dateRangeOptions} label="Date Range" />
 
-			<Button variant="secondary" size="sm" onclick={clearFilters}>
-				Clear All Filters
-			</Button>
+			<Button variant="secondary" size="sm" onclick={clearFilters}>Clear All Filters</Button>
 		</FilterPanel>
 
 		<!-- Reports Display -->
@@ -338,7 +321,7 @@
 			<DataGrid items={filteredReports} columns={{ lg: 1 }}>
 				{#snippet children(report: Report)}
 					<ReportCard
-						report={report}
+						{report}
 						onDownload={() => handleDownload(report)}
 						onView={() => handleView(report)}
 						onDelete={() => handleDelete(report)}
@@ -348,7 +331,7 @@
 			</DataGrid>
 		{:else}
 			<!-- Table View -->
-			<div class="terminal-window p-4 sm:p-6 pt-10 sm:pt-12 overflow-x-auto">
+			<div class="terminal-window overflow-x-auto p-4 pt-10 sm:p-6 sm:pt-12">
 				<div class="terminal-dots">
 					<div class="terminal-dot terminal-dot-red"></div>
 					<div class="terminal-dot terminal-dot-yellow"></div>
@@ -357,44 +340,66 @@
 				<table class="w-full min-w-[800px] font-mono text-sm">
 					<thead>
 						<tr class="border-b border-[var(--color-border)]">
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Report Name</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Type</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Status</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Generated</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Size</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Downloads</th>
-							<th class="text-left py-3 px-2 text-[var(--color-text)] font-semibold">Actions</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Report Name</th
+							>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Type</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Status</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Generated</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Size</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Downloads</th>
+							<th class="px-2 py-3 text-left font-semibold text-[var(--color-text)]">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						{#each filteredReports as report (report.id)}
-							<tr class="border-b border-[var(--color-border)] hover:bg-[var(--color-surface-light)] transition-colors">
-								<td class="py-3 px-2 text-[var(--color-text)]">{report.name}</td>
-								<td class="py-3 px-2 text-[var(--color-text-secondary)]">{report.type}</td>
-								<td class="py-3 px-2">
-									<span class="px-2 py-1 rounded text-xs font-semibold" style="color: {getStatusColor(report.status)}; background-color: {getStatusColor(report.status)}20;">
+							<tr
+								class="border-b border-[var(--color-border)] transition-colors hover:bg-[var(--color-surface-light)]"
+							>
+								<td class="px-2 py-3 text-[var(--color-text)]">{report.name}</td>
+								<td class="px-2 py-3 text-[var(--color-text-secondary)]">{report.type}</td>
+								<td class="px-2 py-3">
+									<span
+										class="rounded px-2 py-1 text-xs font-semibold"
+										style="color: {getStatusColor(
+											report.status
+										)}; background-color: {getStatusColor(report.status)}20;"
+									>
 										{report.status}
 									</span>
 								</td>
-								<td class="py-3 px-2 text-[var(--color-text-secondary)]">{formatDate(report.generatedDate)}</td>
-								<td class="py-3 px-2 text-[var(--color-text-secondary)]">{report.fileSize}</td>
-								<td class="py-3 px-2 text-[var(--color-text-secondary)]">{report.downloadCount}</td>
-								<td class="py-3 px-2">
+								<td class="px-2 py-3 text-[var(--color-text-secondary)]"
+									>{formatDate(report.generatedDate)}</td
+								>
+								<td class="px-2 py-3 text-[var(--color-text-secondary)]">{report.fileSize}</td>
+								<td class="px-2 py-3 text-[var(--color-text-secondary)]">{report.downloadCount}</td>
+								<td class="px-2 py-3">
 									<div class="flex items-center gap-1">
 										{#if report.status === 'Generated'}
-											<button class="btn-terminal px-2 py-1 rounded text-xs hover:scale-105 transition-transform" title="Download">
+											<button
+												class="btn-terminal rounded px-2 py-1 text-xs transition-transform hover:scale-105"
+												title="Download"
+											>
 												DL
 											</button>
-											<button class="btn-terminal px-2 py-1 rounded text-xs hover:scale-105 transition-transform" title="View">
+											<button
+												class="btn-terminal rounded px-2 py-1 text-xs transition-transform hover:scale-105"
+												title="View"
+											>
 												VIEW
 											</button>
 										{:else if report.status === 'Failed'}
-											<button class="btn-terminal px-2 py-1 rounded text-xs hover:scale-105 transition-transform" title="Regenerate">
+											<button
+												class="btn-terminal rounded px-2 py-1 text-xs transition-transform hover:scale-105"
+												title="Regenerate"
+											>
 												REGEN
 											</button>
 										{/if}
-										<button class="btn-terminal px-2 py-1 rounded text-xs hover:scale-105 transition-transform text-red-400" title="Delete">
-												DEL
+										<button
+											class="btn-terminal rounded px-2 py-1 text-xs text-red-400 transition-transform hover:scale-105"
+											title="Delete"
+										>
+											DEL
 										</button>
 									</div>
 								</td>
@@ -413,8 +418,8 @@
 					<div class="terminal-dot terminal-dot-yellow"></div>
 					<div class="terminal-dot terminal-dot-green"></div>
 				</div>
-				<div class="text-[var(--color-text-muted)] font-mono">
-					<h3 class="text-lg font-semibold mb-2">No reports found</h3>
+				<div class="font-mono text-[var(--color-text-muted)]">
+					<h3 class="mb-2 text-lg font-semibold">No reports found</h3>
 					<p class="text-sm">Try adjusting your search criteria or generate a new report.</p>
 				</div>
 			</div>

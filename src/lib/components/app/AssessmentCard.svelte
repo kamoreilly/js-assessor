@@ -15,7 +15,7 @@
 
 <script lang="ts">
 	import DataCard from '../data/DataCard.svelte';
-	
+
 	interface AssessmentData {
 		id: number;
 		name: string;
@@ -26,7 +26,7 @@
 		dueDate: string;
 		assignee: string;
 	}
-	
+
 	interface Props {
 		assessment: AssessmentData;
 		onEdit?: () => void;
@@ -35,32 +35,30 @@
 		onExport?: () => void;
 		class?: string;
 	}
-	
-	let {
-		assessment,
-		onEdit,
-		onView,
-		onDelete,
-		onExport,
-		class: className = ''
-	}: Props = $props();
-	
+
+	let { assessment, onEdit, onView, onDelete, onExport, class: className = '' }: Props = $props();
+
 	// Map assessment status to status variant
 	function getStatusVariant(status: string) {
 		switch (status) {
-			case 'Completed': return 'success';
-			case 'In Progress': return 'info';
-			case 'Under Review': return 'warning';
-			case 'Draft': return 'default';
-			default: return 'default';
+			case 'Completed':
+				return 'success';
+			case 'In Progress':
+				return 'info';
+			case 'Under Review':
+				return 'warning';
+			case 'Draft':
+				return 'default';
+			default:
+				return 'default';
 		}
 	}
-	
+
 	// Build metadata object
 	const metadata = {
-		'Assignee': assessment.assignee,
+		Assignee: assessment.assignee,
 		'Due Date': assessment.dueDate,
-		'Modified': assessment.lastModified
+		Modified: assessment.lastModified
 	};
 </script>
 

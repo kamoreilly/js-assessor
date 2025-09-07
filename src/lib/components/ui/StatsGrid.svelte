@@ -14,7 +14,7 @@
 <script lang="ts">
 	import StatCard from './StatCard.svelte';
 	import type { StatCardData } from './types.js';
-	
+
 	interface Props {
 		stats: StatCardData[];
 		columns?: {
@@ -26,14 +26,14 @@
 		class?: string;
 		cardSize?: 'sm' | 'md' | 'lg';
 	}
-	
+
 	let {
 		stats,
 		columns = { sm: 2, md: 3, lg: 4, xl: 6 },
 		class: className = '',
 		cardSize = 'md'
 	}: Props = $props();
-	
+
 	// Build responsive grid classes
 	const gridClasses = [
 		`grid`,
@@ -46,12 +46,7 @@
 </script>
 
 <div class="{gridClasses} {className}">
-	{#each stats as stat}
-		<StatCard
-			value={stat.value}
-			label={stat.label}
-			color={stat.color}
-			size={cardSize}
-		/>
+	{#each stats as stat, i (i)}
+		<StatCard value={stat.value} label={stat.label} color={stat.color} size={cardSize} />
 	{/each}
 </div>

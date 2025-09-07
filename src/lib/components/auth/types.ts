@@ -18,31 +18,31 @@ export interface LoginFormProps {
 	 * @returns Promise that resolves when login is complete
 	 */
 	onLogin?: (formData: LoginFormData) => Promise<void>;
-	
+
 	/**
 	 * Whether the form is in loading state
 	 * @default false
 	 */
 	loading?: boolean;
-	
+
 	/**
 	 * Error message to display
 	 * @default ''
 	 */
 	error?: string;
-	
+
 	/**
 	 * Initial email value
 	 * @default ''
 	 */
 	initialEmail?: string;
-	
+
 	/**
 	 * Whether to show remember me checkbox
 	 * @default true
 	 */
 	showRememberMe?: boolean;
-	
+
 	/**
 	 * Whether to show forgot password and sign up links
 	 * @default true

@@ -15,9 +15,10 @@
 -->
 
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import AppHeader from './AppHeader.svelte';
 	import AppFooter from './AppFooter.svelte';
-	
+
 	interface Props {
 		currentPage?: string;
 		title?: string;
@@ -26,9 +27,9 @@
 		footerPromptCommand: string;
 		footerStatusText?: string;
 		class?: string;
-		children?: any;
+		children?: Snippet;
 	}
-	
+
 	let {
 		currentPage = '',
 		title,
@@ -51,17 +52,17 @@
 	{/if}
 </svelte:head>
 
-<div class="min-h-screen bg-[var(--color-background)] terminal-grid">
+<div class="terminal-grid min-h-screen bg-[var(--color-background)]">
 	<!-- Header -->
 	<AppHeader {currentPage} />
-	
+
 	<!-- Main Content -->
 	<main class={className}>
 		{@render children?.()}
 	</main>
-	
+
 	<!-- Footer -->
-	<AppFooter 
+	<AppFooter
 		promptPath={footerPromptPath}
 		promptCommand={footerPromptCommand}
 		statusText={footerStatusText}

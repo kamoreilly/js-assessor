@@ -16,12 +16,12 @@
 <script lang="ts">
 	import TerminalWindow from './TerminalWindow.svelte';
 	import type { StatCardData } from './types.js';
-	
+
 	interface Props extends StatCardData {
 		class?: string;
 		size?: 'sm' | 'md' | 'lg';
 	}
-	
+
 	let {
 		value,
 		label,
@@ -29,13 +29,13 @@
 		class: className = '',
 		size = 'md'
 	}: Props = $props();
-	
+
 	const sizeClasses = {
 		sm: 'text-lg',
 		md: 'text-xl sm:text-2xl',
 		lg: 'text-2xl sm:text-3xl'
 	};
-	
+
 	const labelSizeClasses = {
 		sm: 'text-xs',
 		md: 'text-xs sm:text-sm',
@@ -44,7 +44,7 @@
 </script>
 
 <TerminalWindow class="text-center {className}" padding="sm">
-	<div class="{sizeClasses[size]} font-mono font-bold mb-1" style="color: {color}">
+	<div class="{sizeClasses[size]} mb-1 font-mono font-bold" style="color: {color}">
 		{value}
 	</div>
 	<div class="{labelSizeClasses[size]} font-mono text-[var(--color-text-secondary)]">

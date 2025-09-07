@@ -13,99 +13,98 @@
 <script lang="ts">
 	interface Props {
 		currentPage?: string;
-		showMobileNav?: boolean;
 		class?: string;
 	}
-	
-	let {
-		currentPage = '',
-		showMobileNav = false,
-		class: className = ''
-	}: Props = $props();
-	
+
+	let { currentPage = '', class: className = '' }: Props = $props();
+
 	// Mobile navigation state
 	let mobileMenuOpen = $state(false);
-	
+
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
-	
+
 	const navItems = [
 		{ href: '/', label: 'Dashboard', key: 'dashboard' },
 		{ href: '/assessments', label: 'Assessments', key: 'assessments' },
 		{ href: '/reports', label: 'Reports', key: 'reports' },
 		{ href: '/settings', label: 'Settings', key: 'settings' }
 	];
-	
+
 	function isActive(itemKey: string): boolean {
 		return currentPage === itemKey;
 	}
 </script>
 
 <header class="border-b border-[var(--color-border)] bg-[var(--color-surface)] {className}">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+	<div class="mx-auto max-w-7xl px-4 py-4 sm:px-6">
 		<div class="flex items-center justify-between">
 			<!-- Logo and Brand -->
 			<div class="flex items-center gap-3">
-				<div class="w-8 h-8 bg-[var(--color-accent)] rounded flex items-center justify-center">
-					<span class="text-black font-mono font-bold text-sm">JS</span>
+				<div class="flex h-8 w-8 items-center justify-center rounded bg-[var(--color-accent)]">
+					<span class="font-mono text-sm font-bold text-black">JS</span>
 				</div>
-				<span class="font-mono text-[var(--color-text)] font-semibold text-sm sm:text-base">
+				<span class="font-mono text-sm font-semibold text-[var(--color-text)] sm:text-base">
 					Joint Standards Dashboard
 				</span>
 			</div>
-			
+
 			<!-- Desktop Navigation -->
-			<nav class="hidden md:flex items-center gap-6">
-				{#each navItems as item}
-					<a 
+			<nav class="hidden items-center gap-6 md:flex">
+				{#each navItems as item (item.key)}
+					<a
 						href={item.href}
 						data-sveltekit-preload-data="hover"
-						class="font-mono transition-colors {isActive(item.key) 
-							? 'text-[var(--color-accent)]' 
-							: 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]'
-						}"
+						class="font-mono transition-colors {isActive(item.key)
+							? 'text-[var(--color-accent)]'
+							: 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]'}"
 					>
 						{item.label}
 					</a>
 				{/each}
 			</nav>
-			
+
 			<!-- Mobile Menu Button -->
 			<button
-				class="md:hidden w-8 h-8 bg-[var(--color-surface-light)] border border-[var(--color-border)] rounded flex items-center justify-center hover:border-[var(--color-accent)] transition-colors"
+				class="flex h-8 w-8 items-center justify-center rounded border border-[var(--color-border)] bg-[var(--color-surface-light)] transition-colors hover:border-[var(--color-accent)] md:hidden"
 				onclick={toggleMobileMenu}
 			>
-				<span class="text-[var(--color-text-secondary)] text-sm font-mono">{mobileMenuOpen ? 'CLOSE' : 'MENU'}</span>
+				<span class="font-mono text-sm text-[var(--color-text-secondary)]"
+					>{mobileMenuOpen ? 'CLOSE' : 'MENU'}</span
+				>
 			</button>
-			
+
 			<!-- User Actions -->
 			<div class="flex items-center gap-2 sm:gap-3">
 				<!-- Notifications -->
-				<button class="w-8 h-8 bg-[var(--color-surface-light)] border border-[var(--color-border)] rounded flex items-center justify-center hover:border-[var(--color-accent)] transition-colors">
-					<span class="text-[var(--color-text-secondary)] text-xs font-mono">NOTIFY</span>
+				<button
+					class="flex h-8 w-8 items-center justify-center rounded border border-[var(--color-border)] bg-[var(--color-surface-light)] transition-colors hover:border-[var(--color-accent)]"
+				>
+					<span class="font-mono text-xs text-[var(--color-text-secondary)]">NOTIFY</span>
 				</button>
-				
+
 				<!-- User Avatar -->
-				<div class="w-8 h-8 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
-					<span class="text-white font-mono font-bold text-sm">U</span>
+				<div
+					class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary)]"
+				>
+					<span class="font-mono text-sm font-bold text-white">U</span>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Mobile Navigation -->
 		{#if mobileMenuOpen}
-			<nav class="md:hidden mt-4 pt-4 border-t border-[var(--color-border)]">
+			<nav class="mt-4 border-t border-[var(--color-border)] pt-4 md:hidden">
 				<div class="flex flex-col gap-2">
-					{#each navItems as item}
+					{#each navItems as item (item.key)}
 						<a
 							href={item.href}
 							data-sveltekit-preload-data="hover"
-							class="font-mono py-2 px-3 rounded transition-colors {isActive(item.key)
-								? 'text-[var(--color-accent)] bg-[var(--color-surface-light)]'
-								: 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-surface-light)]'
-							}"
-							onclick={() => mobileMenuOpen = false}
+							class="rounded px-3 py-2 font-mono transition-colors {isActive(item.key)
+								? 'bg-[var(--color-surface-light)] text-[var(--color-accent)]'
+								: 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-light)] hover:text-[var(--color-accent)]'}"
+							onclick={() => (mobileMenuOpen = false)}
 						>
 							{item.label}
 						</a>

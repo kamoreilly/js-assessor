@@ -13,70 +13,81 @@
 	} from '$lib/components';
 	import type { StatCardData, FilterOption, NewAssessmentData } from '$lib/components';
 
+	interface Assessment {
+		id: number;
+		name: string;
+		type: string;
+		status: string;
+		progress: number;
+		lastModified: string;
+		dueDate: string;
+		assignee: string;
+	}
+
 	// Dialog state
 	let isDialogOpen = false;
-	
+
 	// Mock assessment data for demonstration (made reactive for adding new assessments)
 	let assessments = [
 		{
 			id: 1,
-			name: "FSCA Joint Standard 1 Assessment",
-			type: "Operational Risk",
-			status: "Completed",
+			name: 'FSCA Joint Standard 1 Assessment',
+			type: 'Operational Risk',
+			status: 'Completed',
 			progress: 100,
-			lastModified: "2024-01-15",
-			dueDate: "2024-01-20",
-			assignee: "John Smith"
+			lastModified: '2024-01-15',
+			dueDate: '2024-01-20',
+			assignee: 'John Smith'
 		},
 		{
 			id: 2,
-			name: "Market Conduct Assessment",
-			type: "Conduct Risk",
-			status: "In Progress",
+			name: 'Market Conduct Assessment',
+			type: 'Conduct Risk',
+			status: 'In Progress',
 			progress: 75,
-			lastModified: "2024-01-14",
-			dueDate: "2024-01-25",
-			assignee: "Sarah Johnson"
+			lastModified: '2024-01-14',
+			dueDate: '2024-01-25',
+			assignee: 'Sarah Johnson'
 		},
 		{
 			id: 3,
-			name: "Capital Adequacy Review",
-			type: "Financial Risk",
-			status: "Under Review",
+			name: 'Capital Adequacy Review',
+			type: 'Financial Risk',
+			status: 'Under Review',
 			progress: 90,
-			lastModified: "2024-01-13",
-			dueDate: "2024-01-18",
-			assignee: "Mike Davis"
+			lastModified: '2024-01-13',
+			dueDate: '2024-01-18',
+			assignee: 'Mike Davis'
 		},
 		{
 			id: 4,
-			name: "Governance Framework Assessment",
-			type: "Governance",
-			status: "Draft",
+			name: 'Governance Framework Assessment',
+			type: 'Governance',
+			status: 'Draft',
 			progress: 25,
-			lastModified: "2024-01-12",
-			dueDate: "2024-02-01",
-			assignee: "Lisa Chen"
+			lastModified: '2024-01-12',
+			dueDate: '2024-02-01',
+			assignee: 'Lisa Chen'
 		},
 		{
 			id: 5,
-			name: "Liquidity Risk Assessment",
-			type: "Financial Risk",
-			status: "In Progress",
+			name: 'Liquidity Risk Assessment',
+			type: 'Financial Risk',
+			status: 'In Progress',
 			progress: 60,
-			lastModified: "2024-01-11",
-			dueDate: "2024-01-30",
-			assignee: "David Wilson"
+			lastModified: '2024-01-11',
+			dueDate: '2024-01-30',
+			assignee: 'David Wilson'
 		},
 		{
 			id: 6,
-			name: "Customer Due Diligence Review",
-			type: "Compliance",
-			status: "Completed",
+			name: 'Customer Due Diligence Review',
+			type: 'Compliance',
+			status: 'Completed',
 			progress: 100,
-			lastModified: "2024-01-10",
-			dueDate: "2024-01-15",
-			assignee: "Emma Brown"
+			lastModified: '2024-01-10',
+			dueDate: '2024-01-15',
+			assignee: 'Emma Brown'
 		}
 	];
 
@@ -104,9 +115,10 @@
 	];
 
 	// Computed filtered assessments
-	$: filteredAssessments = assessments.filter(assessment => {
-		const matchesSearch = assessment.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-							 assessment.assignee.toLowerCase().includes(searchTerm.toLowerCase());
+	$: filteredAssessments = assessments.filter((assessment) => {
+		const matchesSearch =
+			assessment.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			assessment.assignee.toLowerCase().includes(searchTerm.toLowerCase());
 		const matchesStatus = statusFilter === 'all' || assessment.status === statusFilter;
 		const matchesType = typeFilter === 'all' || assessment.type === typeFilter;
 
@@ -116,10 +128,10 @@
 	// Status summary calculations
 	$: statusSummary = {
 		total: assessments.length,
-		completed: assessments.filter(a => a.status === 'Completed').length,
-		inProgress: assessments.filter(a => a.status === 'In Progress').length,
-		draft: assessments.filter(a => a.status === 'Draft').length,
-		underReview: assessments.filter(a => a.status === 'Under Review').length
+		completed: assessments.filter((a) => a.status === 'Completed').length,
+		inProgress: assessments.filter((a) => a.status === 'In Progress').length,
+		draft: assessments.filter((a) => a.status === 'Draft').length,
+		underReview: assessments.filter((a) => a.status === 'Under Review').length
 	};
 
 	// Statistics for display
@@ -139,53 +151,53 @@
 	}
 
 	// Action handlers
-	function handleEdit(assessment: any) {
+	function handleEdit(assessment: Assessment) {
 		console.log('Edit assessment:', assessment.id);
 	}
 
-	function handleView(assessment: any) {
+	function handleView(assessment: Assessment) {
 		console.log('View assessment:', assessment.id);
 	}
 
-	function handleDelete(assessment: any) {
+	function handleDelete(assessment: Assessment) {
 		console.log('Delete assessment:', assessment.id);
 	}
 
-	function handleExport(assessment: any) {
+	function handleExport(assessment: Assessment) {
 		console.log('Export assessment:', assessment.id);
 	}
-	
+
 	// Dialog handlers
 	function openCreateDialog() {
 		isDialogOpen = true;
 	}
-	
+
 	function closeCreateDialog() {
 		isDialogOpen = false;
 	}
-	
+
 	function handleCreateAssessment(newAssessment: NewAssessmentData) {
 		// Generate a new ID (in a real app this would come from the backend)
-		const newId = Math.max(...assessments.map(a => a.id)) + 1;
-		
+		const newId = Math.max(...assessments.map((a) => a.id)) + 1;
+
 		// Create the new assessment object
 		const assessment = {
 			id: newId,
 			name: newAssessment.name,
 			type: newAssessment.type,
-			status: "Draft",
+			status: 'Draft',
 			progress: 0,
 			lastModified: new Date().toISOString().split('T')[0],
 			dueDate: newAssessment.dueDate,
 			assignee: newAssessment.assignee
 		};
-		
+
 		// Add to assessments array
 		assessments = [assessment, ...assessments];
-		
+
 		// Close dialog
 		closeCreateDialog();
-		
+
 		console.log('Created new assessment:', assessment);
 	}
 </script>
@@ -216,10 +228,8 @@
 		promptCommand="manage --interactive"
 		background="surface"
 	>
-		<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
-			<h2 class="text-2xl font-mono font-bold text-[var(--color-text)]">
-				Assessment Dashboard
-			</h2>
+		<div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+			<h2 class="font-mono text-2xl font-bold text-[var(--color-text)]">Assessment Dashboard</h2>
 			<Button variant="primary" size="md" onclick={openCreateDialog}>
 				+ Create New Assessment
 			</Button>
@@ -232,25 +242,15 @@
 				placeholder="Search by name or assignee..."
 				label="Search Assessments"
 			/>
-			<FilterSelect
-				bind:value={statusFilter}
-				options={statusOptions}
-				label="Filter by Status"
-			/>
-			<FilterSelect
-				bind:value={typeFilter}
-				options={typeOptions}
-				label="Filter by Type"
-			/>
+			<FilterSelect bind:value={statusFilter} options={statusOptions} label="Filter by Status" />
+			<FilterSelect bind:value={typeFilter} options={typeOptions} label="Filter by Type" />
 
-			<Button variant="secondary" size="sm" onclick={clearFilters}>
-				Clear Filters
-			</Button>
+			<Button variant="secondary" size="sm" onclick={clearFilters}>Clear Filters</Button>
 		</FilterPanel>
 
 		<!-- Assessment Grid -->
 		<DataGrid items={filteredAssessments} columns={{ lg: 2, xl: 3 }}>
-			{#snippet children(assessment: any)}
+			{#snippet children(assessment: Assessment)}
 				<AssessmentCard
 					{assessment}
 					onEdit={() => handleEdit(assessment)}
@@ -269,8 +269,8 @@
 					<div class="terminal-dot terminal-dot-yellow"></div>
 					<div class="terminal-dot terminal-dot-green"></div>
 				</div>
-				<div class="text-[var(--color-text-muted)] font-mono">
-					<h3 class="text-lg font-semibold mb-2">No assessments found</h3>
+				<div class="font-mono text-[var(--color-text-muted)]">
+					<h3 class="mb-2 text-lg font-semibold">No assessments found</h3>
 					<p class="text-sm">Try adjusting your search criteria or create a new assessment.</p>
 				</div>
 			</div>

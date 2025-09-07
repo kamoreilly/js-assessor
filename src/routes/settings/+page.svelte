@@ -1,8 +1,5 @@
 <script lang="ts">
-	import {
-		PageLayout,
-		PageSection
-	} from '$lib/components';
+	import { PageLayout, PageSection } from '$lib/components';
 </script>
 
 <PageLayout
@@ -26,7 +23,7 @@
 				<div class="terminal-dot terminal-dot-green"></div>
 			</div>
 			<div class="p-4">
-				<h2 class="text-xl font-mono font-bold text-[var(--color-text)] mb-4">System Settings</h2>
+				<h2 class="mb-4 font-mono text-xl font-bold text-[var(--color-text)]">System Settings</h2>
 				<p class="text-[var(--color-text-secondary)]">
 					Settings configuration page is under development.
 				</p>

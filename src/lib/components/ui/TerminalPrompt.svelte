@@ -18,14 +18,9 @@
 		class?: string;
 		size?: 'xs' | 'sm' | 'md';
 	}
-	
-	let {
-		path,
-		command,
-		class: className = '',
-		size = 'sm'
-	}: Props = $props();
-	
+
+	let { path, command, class: className = '', size = 'sm' }: Props = $props();
+
 	const sizeClasses = {
 		xs: 'text-xs',
 		sm: 'text-xs sm:text-sm',
@@ -35,5 +30,5 @@
 
 <div class="inline-block {className}">
 	<span class="font-mono text-[var(--color-text-muted)] {sizeClasses[size]}">{path} $</span>
-	<span class="font-mono text-[var(--color-accent)] ml-2 {sizeClasses[size]}">{command}</span>
+	<span class="ml-2 font-mono text-[var(--color-accent)] {sizeClasses[size]}">{command}</span>
 </div>

@@ -191,7 +191,7 @@ export interface ActionButtonsProps {
 // Data Display Component Types
 // ============================================================================
 
-export interface DataGridProps<T = any> {
+export interface DataGridProps<T = unknown> {
 	items: T[];
 	columns?: ResponsiveColumns;
 	children: Snippet<[T]>;
@@ -255,7 +255,7 @@ export interface ActivityItem {
 	timestamp: string;
 	type: ActivityType;
 	user?: string;
-	metadata?: Record<string, any>;
+	metadata?: Record<string, unknown>;
 }
 
 export interface ActivityFeedProps {

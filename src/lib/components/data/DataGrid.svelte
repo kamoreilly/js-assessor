@@ -14,16 +14,18 @@
 -->
 
 <script lang="ts">
-	interface Props {
-		items: any[];
+	import type { Snippet } from 'svelte';
+
+	interface Props<T = unknown> {
+		items: T[];
 		columns?: number | { sm?: number; md?: number; lg?: number; xl?: number };
 		gap?: 'sm' | 'md' | 'lg';
 		class?: string;
 		emptyMessage?: string;
-		renderItem?: (item: any, index: number) => any;
-		children?: (item: any, index: number) => any;
+		renderItem?: (item: T, index: number) => Snippet;
+		children?: (item: T, index: number) => Snippet;
 	}
-	
+
 	let {
 		items,
 		columns = { sm: 1, md: 2, lg: 3, xl: 4 },
@@ -33,18 +35,19 @@
 		renderItem,
 		children
 	}: Props = $props();
-	
+
 	// Handle both number and object column definitions
-	const columnConfig = typeof columns === 'number' 
-		? { sm: Math.min(columns, 2), md: Math.min(columns, 3), lg: columns, xl: columns }
-		: { sm: 1, md: 2, lg: 3, xl: 4, ...columns };
-	
+	const columnConfig =
+		typeof columns === 'number'
+			? { sm: Math.min(columns, 2), md: Math.min(columns, 3), lg: columns, xl: columns }
+			: { sm: 1, md: 2, lg: 3, xl: 4, ...columns };
+
 	const gapClasses = {
 		sm: 'gap-3',
 		md: 'gap-4 sm:gap-6',
 		lg: 'gap-6 sm:gap-8'
 	};
-	
+
 	// Build responsive grid classes
 	const gridClasses = [
 		'grid',
@@ -53,22 +56,24 @@
 		columnConfig.lg ? `lg:grid-cols-${columnConfig.lg}` : '',
 		columnConfig.xl ? `xl:grid-cols-${columnConfig.xl}` : '',
 		gapClasses[gap]
-	].filter(Boolean).join(' ');
+	]
+		.filter(Boolean)
+		.join(' ');
 </script>
 
 {#if items.length > 0}
 	<div class="{gridClasses} {className}">
-		{#each items as item, index}
+		{#each items as item, index (index)}
 			{#if renderItem}
-				{@html renderItem(item, index)}
-			{:else}
-				{@render children?.(item, index)}
+				{@render renderItem(item, index)}
+			{:else if children}
+				{@render children(item, index)}
 			{/if}
 		{/each}
 	</div>
 {:else}
-	<div class="text-center py-12 {className}">
-		<p class="font-mono text-[var(--color-text-muted)] text-sm sm:text-base">
+	<div class="py-12 text-center {className}">
+		<p class="font-mono text-sm text-[var(--color-text-muted)] sm:text-base">
 			{emptyMessage}
 		</p>
 	</div>

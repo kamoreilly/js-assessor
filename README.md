@@ -14,6 +14,7 @@ A terminal-themed FSCA compliance application built with SvelteKit, featuring as
 ## Pages
 
 ### Dashboard (`/`)
+
 - Welcome section with terminal prompt styling
 - Quick stats overview (Active Assessments, Reports, Standards, Alerts)
 - Application grid with compliance tools
@@ -21,6 +22,7 @@ A terminal-themed FSCA compliance application built with SvelteKit, featuring as
 - System status monitoring
 
 ### Assessments (`/assessments`)
+
 - Assessment management interface
 - Status summary cards (Total, Completed, In Progress, Under Review, Draft)
 - Create new assessment functionality

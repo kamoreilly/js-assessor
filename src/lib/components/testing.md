@@ -7,6 +7,7 @@ This guide provides instructions for testing the component library to ensure all
 ### Layout Components
 
 #### PageLayout
+
 - [ ] Renders with correct page title in browser tab
 - [ ] Navigation highlights current page correctly
 - [ ] Footer displays correct prompt path and command
@@ -15,6 +16,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Children content renders in main area
 
 #### PageSection
+
 - [ ] Title renders with HTML support (spans, styling)
 - [ ] Subtitle appears below title when provided
 - [ ] Terminal prompt displays correctly when provided
@@ -24,6 +26,7 @@ This guide provides instructions for testing the component library to ensure all
 ### UI Components
 
 #### TerminalWindow
+
 - [ ] Terminal dots appear when showDots=true
 - [ ] Terminal dots hidden when showDots=false
 - [ ] Custom padding applies correctly
@@ -31,6 +34,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Terminal styling (border, background) displays correctly
 
 #### StatsGrid
+
 - [ ] Statistics display in correct responsive columns
 - [ ] Stat values and labels render correctly
 - [ ] Colors apply to stat values
@@ -40,6 +44,7 @@ This guide provides instructions for testing the component library to ensure all
 ### Form Components
 
 #### SearchInput
+
 - [ ] Input value binds correctly
 - [ ] Placeholder text displays
 - [ ] Label appears above input when provided
@@ -48,6 +53,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] onInput callback fires on value change
 
 #### FilterSelect
+
 - [ ] Options render in dropdown
 - [ ] Selected value binds correctly
 - [ ] Label appears above select when provided
@@ -55,6 +61,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] onChange callback fires on selection
 
 #### FilterPanel
+
 - [ ] Children components render in panel
 - [ ] Terminal window styling applied
 - [ ] Responsive layout for form controls
@@ -63,6 +70,7 @@ This guide provides instructions for testing the component library to ensure all
 ### Button Components
 
 #### Button
+
 - [ ] All variants render correctly (primary, secondary, danger, ghost)
 - [ ] All sizes work (sm, md, lg)
 - [ ] Disabled state prevents clicks and shows disabled styling
@@ -71,12 +79,14 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Custom classes apply correctly
 
 #### ButtonGroup
+
 - [ ] Buttons group together visually
 - [ ] Horizontal and vertical orientations work
 - [ ] Proper spacing between buttons
 - [ ] Children buttons render correctly
 
 #### ActionButtons
+
 - [ ] Only enabled actions show buttons
 - [ ] All action handlers fire correctly
 - [ ] Button sizes apply consistently
@@ -85,6 +95,7 @@ This guide provides instructions for testing the component library to ensure all
 ### Data Display Components
 
 #### DataGrid
+
 - [ ] Items render in responsive grid
 - [ ] Column configuration works across breakpoints
 - [ ] Children snippet receives correct item data
@@ -92,6 +103,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Grid adapts to content size
 
 #### DataCard
+
 - [ ] Title and subtitle render correctly
 - [ ] Click handler fires when card is clicked
 - [ ] Terminal styling applied
@@ -101,6 +113,7 @@ This guide provides instructions for testing the component library to ensure all
 ### App-Specific Components
 
 #### AppCard
+
 - [ ] All props render correctly (title, description, icon, status)
 - [ ] Status color applies correctly
 - [ ] Navigation link works
@@ -109,6 +122,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Responsive layout on mobile
 
 #### AssessmentCard
+
 - [ ] All assessment data displays correctly
 - [ ] Progress bar shows correct percentage
 - [ ] Status colors apply correctly
@@ -117,6 +131,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Responsive layout works
 
 #### ReportCard
+
 - [ ] All report data displays correctly
 - [ ] File size formatting is correct
 - [ ] Download count displays
@@ -125,6 +140,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Responsive design works
 
 #### ActivityFeed
+
 - [ ] Activities render in correct order
 - [ ] Title displays when provided
 - [ ] maxItems limit works correctly
@@ -132,6 +148,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Scrolling works for long lists
 
 #### ActivityItem
+
 - [ ] All activity data displays correctly
 - [ ] Type-based styling applies
 - [ ] Timestamps format correctly
@@ -141,6 +158,7 @@ This guide provides instructions for testing the component library to ensure all
 ## Visual Testing
 
 ### Terminal Theme Consistency
+
 - [ ] All components use consistent terminal colors
 - [ ] Terminal dots appear consistently across components
 - [ ] Monospace fonts applied correctly
@@ -148,6 +166,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Background colors consistent
 
 ### Responsive Design
+
 - [ ] All components work on mobile (320px+)
 - [ ] Tablet layout (768px+) displays correctly
 - [ ] Desktop layout (1024px+) utilizes space well
@@ -155,6 +174,7 @@ This guide provides instructions for testing the component library to ensure all
 - [ ] Interactive elements are touch-friendly
 
 ### Accessibility
+
 - [ ] All interactive elements are keyboard accessible
 - [ ] Focus indicators are visible
 - [ ] Screen reader labels are present
@@ -164,18 +184,21 @@ This guide provides instructions for testing the component library to ensure all
 ## Functional Testing
 
 ### Data Handling
+
 - [ ] Components handle empty data gracefully
 - [ ] Large datasets don't break layouts
 - [ ] Invalid data doesn't cause errors
 - [ ] Type safety prevents runtime errors
 
 ### Event Handling
+
 - [ ] All click handlers work correctly
 - [ ] Form submissions work as expected
 - [ ] Input changes trigger updates
 - [ ] Event propagation works correctly
 
 ### State Management
+
 - [ ] Component state updates correctly
 - [ ] Reactive declarations work
 - [ ] Bound values sync properly
@@ -184,12 +207,14 @@ This guide provides instructions for testing the component library to ensure all
 ## Performance Testing
 
 ### Rendering Performance
+
 - [ ] Components render quickly with large datasets
 - [ ] No unnecessary re-renders occur
 - [ ] Memory usage remains reasonable
 - [ ] Smooth animations and transitions
 
 ### Bundle Size
+
 - [ ] Components don't significantly increase bundle size
 - [ ] Tree shaking works correctly
 - [ ] No unused dependencies included
@@ -197,12 +222,14 @@ This guide provides instructions for testing the component library to ensure all
 ## Browser Testing
 
 ### Supported Browsers
+
 - [ ] Chrome (latest)
 - [ ] Firefox (latest)
 - [ ] Safari (latest)
 - [ ] Edge (latest)
 
 ### Mobile Browsers
+
 - [ ] iOS Safari
 - [ ] Chrome Mobile
 - [ ] Samsung Internet
@@ -224,46 +251,52 @@ import { render, screen } from '@testing-library/svelte';
 import { Button } from '$lib/components';
 
 test('Button renders with correct text', () => {
-  render(Button, { props: { children: 'Click me' } });
-  expect(screen.getByRole('button')).toHaveTextContent('Click me');
+	render(Button, { props: { children: 'Click me' } });
+	expect(screen.getByRole('button')).toHaveTextContent('Click me');
 });
 
 test('Button calls onclick handler', async () => {
-  const handleClick = vi.fn();
-  render(Button, { props: { onclick: handleClick } });
-  
-  await fireEvent.click(screen.getByRole('button'));
-  expect(handleClick).toHaveBeenCalledOnce();
+	const handleClick = vi.fn();
+	render(Button, { props: { onclick: handleClick } });
+
+	await fireEvent.click(screen.getByRole('button'));
+	expect(handleClick).toHaveBeenCalledOnce();
 });
 ```
 
 ## Common Issues and Solutions
 
 ### Styling Issues
+
 - **Problem**: Components don't match terminal theme
 - **Solution**: Ensure CSS variables are properly imported and used
 
 ### Responsive Issues
+
 - **Problem**: Layout breaks on mobile
 - **Solution**: Test with actual devices, not just browser dev tools
 
 ### Type Issues
+
 - **Problem**: TypeScript errors with component props
 - **Solution**: Import types from `$lib/components/types` and use proper interfaces
 
 ### Performance Issues
+
 - **Problem**: Slow rendering with large datasets
 - **Solution**: Implement virtual scrolling or pagination for large lists
 
 ## Maintenance
 
 ### Regular Testing Schedule
+
 - [ ] Run full test suite before each release
 - [ ] Visual regression testing monthly
 - [ ] Performance testing quarterly
 - [ ] Accessibility audit bi-annually
 
 ### Documentation Updates
+
 - [ ] Update documentation when components change
 - [ ] Keep examples current with latest API
 - [ ] Document breaking changes clearly

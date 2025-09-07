@@ -24,7 +24,7 @@
 		icon?: string;
 		class?: string;
 	}
-	
+
 	let {
 		title,
 		description,
@@ -33,33 +33,35 @@
 		user,
 		class: className = ''
 	}: Props = $props();
-	
+
 	const statusColors = {
 		success: 'var(--color-success)',
 		warning: 'var(--color-accent)',
 		error: '#ef4444',
 		info: 'var(--color-primary)'
 	};
-	
+
 	const dotColor = statusColors[status];
 </script>
 
-<div class="flex items-start gap-3 p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded {className}">
+<div
+	class="flex items-start gap-3 rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-3 {className}"
+>
 	<!-- Status Indicator -->
-	<div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" style="background-color: {dotColor}"></div>
-	
+	<div class="mt-2 h-2 w-2 flex-shrink-0 rounded-full" style="background-color: {dotColor}"></div>
+
 	<!-- Content -->
-	<div class="flex-1 min-w-0">
-		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-			<span class="font-mono text-xs sm:text-sm text-[var(--color-text)] break-words">
+	<div class="min-w-0 flex-1">
+		<div class="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+			<span class="break-words font-mono text-xs text-[var(--color-text)] sm:text-sm">
 				{title}
 			</span>
-			<span class="font-mono text-xs text-[var(--color-text-muted)] flex-shrink-0">
+			<span class="flex-shrink-0 font-mono text-xs text-[var(--color-text-muted)]">
 				{timestamp}
 			</span>
 		</div>
-		
-		<p class="text-[var(--color-text-secondary)] font-mono text-xs break-words">
+
+		<p class="break-words font-mono text-xs text-[var(--color-text-secondary)]">
 			{description}
 			{#if user}
 				<span class="text-[var(--color-text-muted)]"> • {user}</span>
