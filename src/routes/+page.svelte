@@ -1,428 +1,266 @@
-<div class="min-h-screen bg-[var(--color-background)] terminal-grid">
-	<!-- Dashboard Header -->
-	<header class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-		<div class="max-w-7xl mx-auto px-6 py-4">
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-3">
-					<div class="w-8 h-8 bg-[var(--color-accent)] rounded flex items-center justify-center">
-						<span class="text-black font-mono font-bold text-sm">JS</span>
-					</div>
-					<span class="font-mono text-[var(--color-text)] font-semibold">Joint Standards Dashboard</span>
-				</div>
-				<nav class="hidden md:flex items-center gap-6">
-					<a href="/" class="font-mono text-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors">Dashboard</a>
-					<a href="/assessments" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors">Assessments</a>
-					<a href="/reports" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors">Reports</a>
-					<a href="/settings" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors">Settings</a>
-				</nav>
-				<div class="flex items-center gap-3">
-					<button class="w-8 h-8 bg-[var(--color-surface-light)] border border-[var(--color-border)] rounded flex items-center justify-center hover:border-[var(--color-accent)] transition-colors">
-						<span class="text-[var(--color-text-secondary)] text-sm">🔔</span>
-					</button>
-					<div class="w-8 h-8 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
-						<span class="text-white font-mono font-bold text-sm">U</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+<script lang="ts">
+  import PageLayout from '$lib/components/layout/PageLayout.svelte';
+  import PageSection from '$lib/components/layout/PageSection.svelte';
+  import Button from '$lib/components/buttons/Button.svelte';
+  import TerminalWindow from '$lib/components/ui/TerminalWindow.svelte';
+  import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 
-	<!-- Dashboard Welcome Section -->
-	<section class="px-6 py-12 mx-auto max-w-7xl">
-		<div class="mb-8">
-			<div class="inline-block mb-4">
-				<span class="font-mono text-[var(--color-text-muted)] text-sm">~/dashboard $</span>
-				<span class="font-mono text-[var(--color-accent)] ml-2">welcome --user=admin</span>
-			</div>
-			<h1 class="text-3xl md:text-4xl font-mono font-bold text-[var(--color-text)] mb-4">
-				Welcome to your <span class="text-[var(--color-accent)]">Compliance Dashboard</span>
-			</h1>
-			<p class="text-lg text-[var(--color-text-secondary)] mb-6 font-mono">
-				Manage your FSCA compliance applications and assessments from one central location.
-			</p>
-		</div>
+  // Enhanced metrics with trend analysis and context
+  const primaryMetrics = [
+    {
+      value: '1,247',
+      label: 'Total Assessments',
+      color: 'var(--color-accent)',
+      change: '+12%',
+      trend: 'up',
+      context: 'vs last month'
+    },
+    {
+      value: '89.2%',
+      label: 'Pass Rate',
+      color: 'var(--color-success)',
+      change: '+2.1%',
+      trend: 'up',
+      context: 'vs last month'
+    },
+    {
+      value: '567',
+      label: 'Active Users',
+      color: '#3b82f6',
+      change: '-3%',
+      trend: 'down',
+      context: 'vs last month'
+    },
+    {
+      value: '456',
+      label: 'Reports Generated',
+      color: '#10b981',
+      change: '+18%',
+      trend: 'up',
+      context: 'vs last month'
+    }
+  ];
 
-		<!-- Quick Stats -->
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-			<div class="terminal-window p-4 pt-8 text-center">
-				<div class="terminal-dots">
-					<div class="terminal-dot terminal-dot-red"></div>
-					<div class="terminal-dot terminal-dot-yellow"></div>
-					<div class="terminal-dot terminal-dot-green"></div>
-				</div>
-				<div class="text-2xl font-mono font-bold text-[var(--color-accent)] mb-1">12</div>
-				<div class="text-sm font-mono text-[var(--color-text-secondary)]">Active Assessments</div>
-			</div>
-			<div class="terminal-window p-4 pt-8 text-center">
-				<div class="terminal-dots">
-					<div class="terminal-dot terminal-dot-red"></div>
-					<div class="terminal-dot terminal-dot-yellow"></div>
-					<div class="terminal-dot terminal-dot-green"></div>
-				</div>
-				<div class="text-2xl font-mono font-bold text-[var(--color-success)] mb-1">8</div>
-				<div class="text-sm font-mono text-[var(--color-text-secondary)]">Reports Generated</div>
-			</div>
-			<div class="terminal-window p-4 pt-8 text-center">
-				<div class="terminal-dots">
-					<div class="terminal-dot terminal-dot-red"></div>
-					<div class="terminal-dot terminal-dot-yellow"></div>
-					<div class="terminal-dot terminal-dot-green"></div>
-				</div>
-				<div class="text-2xl font-mono font-bold text-[var(--color-primary)] mb-1">156</div>
-				<div class="text-sm font-mono text-[var(--color-text-secondary)]">Standards Available</div>
-			</div>
-			<div class="terminal-window p-4 pt-8 text-center">
-				<div class="terminal-dots">
-					<div class="terminal-dot terminal-dot-red"></div>
-					<div class="terminal-dot terminal-dot-yellow"></div>
-					<div class="terminal-dot terminal-dot-green"></div>
-				</div>
-				<div class="text-2xl font-mono font-bold text-[var(--color-accent)] mb-1">3</div>
-				<div class="text-sm font-mono text-[var(--color-text-secondary)]">Active Alerts</div>
-			</div>
-		</div>
-	</section>
+  const complianceMetrics = [
+    {
+      value: '94.2%',
+      label: 'Overall Compliance',
+      color: 'var(--color-success)'
+    },
+    {
+      value: '23',
+      label: 'Pending Reviews',
+      color: '#f59e0b'
+    },
+    {
+      value: '5',
+      label: 'Critical Issues',
+      color: '#ef4444'
+    }
+  ];
 
-	<!-- Applications Grid -->
-	<section class="px-6 py-16 bg-[var(--color-surface)]">
-		<div class="mx-auto max-w-7xl">
-			<div class="text-center mb-12">
-				<div class="inline-block mb-4">
-					<span class="font-mono text-[var(--color-text-muted)] text-sm">~/apps $</span>
-					<span class="font-mono text-[var(--color-accent)] ml-2">list --available</span>
-				</div>
-				<h2 class="text-3xl font-mono font-bold text-[var(--color-text)] mb-4">
-					Your Compliance Applications
-				</h2>
-				<p class="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto font-mono">
-					Access all your FSCA compliance tools and applications from one central dashboard
-				</p>
-			</div>
+  const actionCards = [
+    {
+      title: 'Create Assessment',
+      description: 'Start a new compliance assessment workflow',
+      action: 'Create New',
+      href: '/assessments/new',
+      priority: 'high'
+    },
+    {
+      title: 'Review Pending',
+      description: 'Review 23 assessments awaiting approval',
+      action: 'Review (23)',
+      href: '/assessments?filter=pending',
+      priority: 'medium'
+    },
+    {
+      title: 'Generate Report',
+      description: 'Export compliance reports and analytics',
+      action: 'Generate',
+      href: '/reports/new',
+      priority: 'low'
+    },
+    {
+      title: 'System Settings',
+      description: 'Configure compliance rules and preferences',
+      action: 'Configure',
+      href: '/settings',
+      priority: 'low'
+    }
+  ];
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-				<!-- Assessment Builder App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">📋</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Assessment Builder
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Create and manage FSCA compliance assessments
-						</p>
-						<div class="text-xs font-mono text-[var(--color-accent)] mb-4">
-							12 active assessments
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
 
-				<!-- Report Generator App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">📊</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Report Generator
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Generate comprehensive compliance reports
-						</p>
-						<div class="text-xs font-mono text-[var(--color-success)] mb-4">
-							8 reports this month
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+  const complianceTrends = [
+    { period: 'Last 7 days', score: 92.1, change: '+1.2%', status: 'improving' },
+    { period: 'Last 30 days', score: 89.7, change: '+3.4%', status: 'improving' },
+    { period: 'Last 90 days', score: 87.2, change: '+5.8%', status: 'improving' }
+  ];
 
-				<!-- Standards Library App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">📚</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Standards Library
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Browse FSCA joint standards and regulations
-						</p>
-						<div class="text-xs font-mono text-[var(--color-primary)] mb-4">
-							156 standards available
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+  let currentDate = new Date().toLocaleDateString('en-US', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
 
-				<!-- Audit Trail App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">🔍</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Audit Trail
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Track and monitor compliance activities
-						</p>
-						<div class="text-xs font-mono text-[var(--color-accent)] mb-4">
-							24 recent activities
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+  let currentTime = new Date().toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+</script>
 
-				<!-- Risk Monitor App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">⚠️</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Risk Monitor
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Monitor compliance risks and alerts
-						</p>
-						<div class="text-xs font-mono text-[var(--color-accent)] mb-4">
-							3 active alerts
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+<svelte:head>
+  <title>Dashboard - JS Assessor</title>
+  <meta name="description" content="Professional dashboard for JS assessments and compliance reporting" />
+</svelte:head>
 
-				<!-- Documentation Hub App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">📖</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Documentation Hub
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Access compliance documentation and guides
-						</p>
-						<div class="text-xs font-mono text-[var(--color-primary)] mb-4">
-							45 documents
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+<PageLayout
+  currentPage="dashboard"
+  title="Dashboard - JS Assessor"
+  description="Professional compliance dashboard with real-time insights and actionable intelligence"
+  footerPromptPath="/dashboard"
+  footerPromptCommand="system-overview --health"
+>
+  <!-- Dashboard Header -->
+  <PageSection
+    title="Compliance <span class='text-[var(--color-accent)]'>Dashboard</span>"
+    subtitle="Real-time overview of your compliance status and system health"
+    promptPath="/dashboard"
+    promptCommand="status --overview"
+  >
+    <!-- Key Metrics Overview -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      {#each primaryMetrics as metric}
+        <TerminalWindow padding="sm" hoverEffect>
+          <div class="text-center">
+            <div class="text-2xl font-mono font-bold mb-2" style="color: {metric.color}">
+              {metric.value}
+            </div>
+            <div class="text-xs font-mono text-[var(--color-text-secondary)] mb-2">
+              {metric.label}
+            </div>
+            <div class="flex items-center justify-center gap-1 text-xs font-mono">
+              <span style="color: {metric.trend === 'up' ? 'var(--color-success)' : '#ef4444'}">{metric.change}</span>
+              <span class="text-[var(--color-text-muted)]">{metric.context}</span>
+            </div>
+          </div>
+        </TerminalWindow>
+      {/each}
+    </div>
+    
+    <!-- System Status Summary -->
+    <TerminalWindow padding="md">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Status -->
+        <div class="lg:col-span-2">
+          <div class="mb-6">
+            <h2 class="text-2xl font-mono font-bold text-[var(--color-success)] mb-1">SYSTEM OPERATIONAL</h2>
+            <p class="text-[var(--color-text-secondary)] font-mono">All compliance systems running optimally</p>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-mono">
+            <div class="flex justify-between">
+              <span class="text-[var(--color-text-secondary)]">Overall Health:</span>
+              <span class="text-[var(--color-success)]">94.2% COMPLIANT</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[var(--color-text-secondary)]">System Load:</span>
+              <span class="text-[var(--color-accent)]">OPTIMAL</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[var(--color-text-secondary)]">Active Assessments:</span>
+              <span class="text-[var(--color-text)]">42</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[var(--color-text-secondary)]">Alerts Pending:</span>
+              <span class="text-[#f59e0b]">5 CRITICAL</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Compliance Score -->
+        <div class="text-center">
+          <div class="text-6xl font-mono font-bold text-[var(--color-success)] mb-2">94.2</div>
+          <div class="text-[var(--color-text-secondary)] font-mono text-sm mb-4">COMPLIANCE SCORE</div>
+          <div class="flex justify-center">
+            <ProgressBar value={94.2} max={100} color="var(--color-success)" size="md" class="w-32" />
+          </div>
+          <div class="text-[var(--color-success)] font-mono text-xs mt-2">+2.1% THIS MONTH</div>
+        </div>
+      </div>
+    </TerminalWindow>
+  </PageSection>
 
-				<!-- Settings App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">⚙️</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Settings
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Configure system and user preferences
-						</p>
-						<div class="text-xs font-mono text-[var(--color-text-muted)] mb-4">
-							Last updated 2 days ago
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
+  <!-- Quick Actions -->
+  <PageSection title="Quick Actions" subtitle="Common tasks and workflows">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {#each actionCards as action}
+        <TerminalWindow padding="sm" class="cursor-pointer transition-all duration-200 hover:scale-[1.02]">
+          <a href={action.href} class="block">
+            <div class="text-center">
+              <h3 class="font-mono font-bold text-[var(--color-text)] mb-2">{action.title}</h3>
+              <p class="text-xs text-[var(--color-text-secondary)] mb-4 leading-relaxed">{action.description}</p>
+              <div class="inline-flex items-center gap-2 text-xs font-mono px-3 py-1 rounded bg-[var(--color-surface-light)] border border-[var(--color-border-light)]">
+                <span class="w-2 h-2 rounded-full" style="background-color: {action.priority === 'high' ? 'var(--color-success)' : action.priority === 'medium' ? '#f59e0b' : 'var(--color-text-muted)'}"></span>
+                {action.action}
+              </div>
+            </div>
+          </a>
+        </TerminalWindow>
+      {/each}
+    </div>
+  </PageSection>
 
-				<!-- Support Center App -->
-				<div class="terminal-window p-6 pt-12 hover:border-[var(--color-accent)] transition-colors cursor-pointer group">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<div class="w-16 h-16 bg-[var(--color-surface-light)] border border-[var(--color-border-light)] rounded flex items-center justify-center mx-auto mb-4 group-hover:border-[var(--color-accent)] transition-colors">
-							<span class="text-[var(--color-accent)] font-mono text-2xl">🎧</span>
-						</div>
-						<h3 class="text-lg font-mono font-semibold text-[var(--color-text)] mb-2">
-							Support Center
-						</h3>
-						<p class="text-[var(--color-text-secondary)] font-mono text-sm mb-3 leading-relaxed">
-							Get help and technical support
-						</p>
-						<div class="text-xs font-mono text-[var(--color-success)] mb-4">
-							Response time: 2 hours
-						</div>
-						<button class="w-full btn-terminal-primary px-4 py-2 rounded text-sm font-mono">
-							Open App
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
-	<!-- Recent Activity Section -->
-	<section class="px-6 py-16 bg-[var(--color-background)]">
-		<div class="mx-auto max-w-7xl">
-			<div class="grid lg:grid-cols-2 gap-12">
-				<div>
-					<div class="mb-6">
-						<span class="font-mono text-[var(--color-text-muted)] text-sm">~/activity $</span>
-						<span class="font-mono text-[var(--color-accent)] ml-2">tail --recent</span>
-					</div>
-					<h2 class="text-3xl font-mono font-bold text-[var(--color-text)] mb-6">
-						Recent Activity
-					</h2>
-					<div class="space-y-4">
-						<div class="flex items-start gap-3 p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded">
-							<div class="w-2 h-2 bg-[var(--color-success)] rounded-full mt-2"></div>
-							<div class="flex-1">
-								<div class="flex items-center justify-between mb-1">
-									<span class="font-mono text-sm text-[var(--color-text)]">Assessment completed</span>
-									<span class="font-mono text-xs text-[var(--color-text-muted)]">2 min ago</span>
-								</div>
-								<p class="text-[var(--color-text-secondary)] font-mono text-xs">FSCA Joint Standard 1 assessment finished with 98% compliance</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3 p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded">
-							<div class="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2"></div>
-							<div class="flex-1">
-								<div class="flex items-center justify-between mb-1">
-									<span class="font-mono text-sm text-[var(--color-text)]">Report generated</span>
-									<span class="font-mono text-xs text-[var(--color-text-muted)]">15 min ago</span>
-								</div>
-								<p class="text-[var(--color-text-secondary)] font-mono text-xs">Monthly compliance report exported to PDF</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3 p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded">
-							<div class="w-2 h-2 bg-[var(--color-accent)] rounded-full mt-2"></div>
-							<div class="flex-1">
-								<div class="flex items-center justify-between mb-1">
-									<span class="font-mono text-sm text-[var(--color-text)]">New standard added</span>
-									<span class="font-mono text-xs text-[var(--color-text-muted)]">1 hour ago</span>
-								</div>
-								<p class="text-[var(--color-text-secondary)] font-mono text-xs">FSCA Joint Standard 15 v2.1 added to library</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3 p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded">
-							<div class="w-2 h-2 bg-[var(--color-accent)] rounded-full mt-2"></div>
-							<div class="flex-1">
-								<div class="flex items-center justify-between mb-1">
-									<span class="font-mono text-sm text-[var(--color-text)]">Risk alert triggered</span>
-									<span class="font-mono text-xs text-[var(--color-text-muted)]">3 hours ago</span>
-								</div>
-								<p class="text-[var(--color-text-secondary)] font-mono text-xs">Medium risk detected in operational procedures</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="terminal-window p-8 pt-12">
-					<div class="terminal-dots">
-						<div class="terminal-dot terminal-dot-red"></div>
-						<div class="terminal-dot terminal-dot-yellow"></div>
-						<div class="terminal-dot terminal-dot-green"></div>
-					</div>
-					<div class="text-center">
-						<h3 class="text-2xl font-mono font-bold text-[var(--color-text)] mb-4">System Status</h3>
-						<div class="space-y-4 text-left">
-							<div class="flex items-center justify-between">
-								<span class="font-mono text-sm text-[var(--color-text)]">Database</span>
-								<span class="font-mono text-xs text-[var(--color-success)]">● Online</span>
-							</div>
-							<div class="flex items-center justify-between">
-								<span class="font-mono text-sm text-[var(--color-text)]">Assessment Engine</span>
-								<span class="font-mono text-xs text-[var(--color-success)]">● Running</span>
-							</div>
-							<div class="flex items-center justify-between">
-								<span class="font-mono text-sm text-[var(--color-text)]">Report Service</span>
-								<span class="font-mono text-xs text-[var(--color-success)]">● Active</span>
-							</div>
-							<div class="flex items-center justify-between">
-								<span class="font-mono text-sm text-[var(--color-text)]">Backup Status</span>
-								<span class="font-mono text-xs text-[var(--color-success)]">● Complete</span>
-							</div>
-						</div>
-						<div class="mt-6 pt-4 border-t border-[var(--color-border)]">
-							<p class="text-[var(--color-text-muted)] font-mono text-xs mb-2">
-								Last backup: 2 hours ago
-							</p>
-							<p class="text-[var(--color-text-muted)] font-mono text-xs">
-								Next scheduled maintenance: Sunday 2:00 AM
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+  <!-- Compliance Overview -->
+  <PageSection title="Compliance Overview" subtitle="Current status and trend analysis">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Compliance Metrics -->
+      <TerminalWindow padding="md">
+        <h3 class="font-mono font-bold text-[var(--color-text)] mb-6 text-center">Current Compliance Status</h3>
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          {#each complianceMetrics as metric}
+            <div class="text-center">
+              <div class="text-xl font-mono font-bold mb-1" style="color: {metric.color}">
+                {metric.value}
+              </div>
+              <div class="text-xs font-mono text-[var(--color-text-secondary)]">
+                {metric.label}
+              </div>
+            </div>
+          {/each}
+        </div>
+        
+        <div class="text-center">
+          <Button class="btn-terminal-primary">Review Critical Issues</Button>
+        </div>
+      </TerminalWindow>
 
-	<!-- Dashboard Footer -->
-	<footer class="px-6 py-8 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
-		<div class="mx-auto max-w-7xl">
-			<div class="flex flex-col md:flex-row items-center justify-between">
-				<div class="mb-4 md:mb-0">
-					<span class="font-mono text-[var(--color-text-muted)] text-sm">~/dashboard $</span>
-					<span class="font-mono text-[var(--color-accent)] ml-2">status --all-systems-operational</span>
-				</div>
-				<div class="flex items-center gap-6">
-					<a href="/help" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm">Help</a>
-					<a href="/docs" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm">Documentation</a>
-					<a href="/support" class="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm">Support</a>
-				</div>
-				<div class="text-[var(--color-text-muted)] font-mono text-xs">
-					v2.1.0 • Uptime: 99.9%
-				</div>
-			</div>
-		</div>
-	</footer>
-</div>
+      <!-- Trending Analysis -->
+      <TerminalWindow padding="md">
+        <h3 class="font-mono font-bold text-[var(--color-text)] mb-6 text-center">Compliance Trends</h3>
+        <div class="space-y-4">
+          {#each complianceTrends as trend}
+            <div class="flex justify-between items-center py-3 border-b border-[var(--color-border-light)] last:border-0">
+              <div>
+                <div class="font-mono text-[var(--color-text)] text-sm">{trend.period}</div>
+                <div class="text-xs text-[var(--color-text-secondary)] capitalize">{trend.status}</div>
+              </div>
+              <div class="text-right">
+                <div class="font-mono font-bold text-[var(--color-text)]">{trend.score}%</div>
+                <div class="text-xs text-[var(--color-success)] font-mono">{trend.change}</div>
+              </div>
+            </div>
+          {/each}
+        </div>
+        
+        <div class="mt-6 pt-4 border-t border-[var(--color-border-light)] text-center">
+          <Button class="btn-terminal">Generate Trend Report →</Button>
+        </div>
+      </TerminalWindow>
+    </div>
+  </PageSection>
+
+</PageLayout>
+
